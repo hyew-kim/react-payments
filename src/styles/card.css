@@ -1,9 +1,10 @@
 .card-box {
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  margin: 10px 0;
+  margin-top: 10px;
 }
 
 .empty-card {
@@ -39,9 +40,15 @@
 
   width: 208px;
   height: 130px;
-
+  margin: 10px auto;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
+}
+
+.small-card:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.5s;
 }
 
 .small-card__chip {
@@ -63,6 +70,7 @@
   width: 290px;
   height: 180px;
 
+  margin: 10px auto;
   background: #94dacd;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
@@ -122,7 +130,7 @@
   justify-content: space-between;
 }
 
-.card-text {
+.card-text__small {
   margin: 0 16px;
 
   font-size: 14px;

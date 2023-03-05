@@ -3,9 +3,13 @@ import CardSelectPopup from '../components/CardSelectPopup';
 import Button from '../components/Common/Button';
 import InputContainer from '../components/InputContainer';
 import { useEffect, useState } from 'react';
+import { usePaymentContext, usePaymentAction } from '../Context';
+import { CARD_COMPANY_LIST } from '../Constant';
 
-const CardRegist = ({ cardInfo, onChange, onSubmit, cardCompanyList, setCardInfo, onReset }) => {
+const CardRegist = ({ onChange, onSubmit, onReset }) => {
   const [isShowPopup, setIsShowPopup] = useState(true);
+  const { cardInfo } = usePaymentContext();
+  const { setCardInfo } = usePaymentAction();
 
   useEffect(() => {
     onReset();
@@ -25,7 +29,7 @@ const CardRegist = ({ cardInfo, onChange, onSubmit, cardCompanyList, setCardInfo
   };
   return (
     <main>
-      <Card cardInfo={cardInfo} />
+      <Card cardInfo={cardInfo} onClick={() => setIsShowPopup(true)} />
       <form onSubmit={onSubmit}>
         <InputContainer
           title="카드번호"
@@ -34,6 +38,7 @@ const CardRegist = ({ cardInfo, onChange, onSubmit, cardCompanyList, setCardInfo
               id: 'number',
               type: 'text',
               maxLength: 19,
+              minLength: 19,
               required: true
             }
           ]}
@@ -47,6 +52,7 @@ const CardRegist = ({ cardInfo, onChange, onSubmit, cardCompanyList, setCardInfo
               id: 'expiry',
               type: 'text',
               maxLength: 5,
+              minLength: 5,
               required: true,
               placeholder: 'MM/YY'
             }
@@ -76,6 +82,7 @@ const CardRegist = ({ cardInfo, onChange, onSubmit, cardCompanyList, setCardInfo
               id: 'cvc',
               type: 'password',
               maxLength: 3,
+              minLength: 3,
               required: true
             }
           ]}
@@ -105,10 +112,10 @@ const CardRegist = ({ cardInfo, onChange, onSubmit, cardCompanyList, setCardInfo
           onChange={onChange}
           hasBoxClass={false}
         />
-        <Button className="button-box registor-button" children="다음"></Button>
+        <Button className="button-box button" children="다음"></Button>
       </form>
       {isShowPopup && (
-        <CardSelectPopup cardCompanyList={cardCompanyList} onClick={handlePopupClick} />
+        <CardSelectPopup cardCompanyList={CARD_COMPANY_LIST} onClick={handlePopupClick} />
       )}
     </main>
   );
